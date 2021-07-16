@@ -39,4 +39,4 @@ const User = model('user', userSchema, 'users');
 
 module.exports = {
   User,
-}
+};
