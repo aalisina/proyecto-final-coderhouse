@@ -10,6 +10,8 @@ const { Server } = require('socket.io');
 
 const io = new Server(server);
 
+api.use(require('../routers'));
+
 api.get('/', (req, res) => {
   res.send('Welcome.');
 });
