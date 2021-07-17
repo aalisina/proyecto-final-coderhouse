@@ -7,8 +7,8 @@ POST http://localhost:3001/api/v1/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "first_name": "Isabella",
-    "last_name": "Jimenez",
-    "email": "jimenez123@gmail.com",
-    "password": "jimenez123"
+    "first_name": "Dana",
+    "last_name": "Jones",
+    "email": "jones123@gmail.com",
+    "password": "jones123"
 }
