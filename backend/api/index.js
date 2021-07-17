@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const { errors } = require('celebrate');
 
 const api = express();
 const PORT = process.env.PORT || 3001;
@@ -16,6 +17,7 @@ api.use(express.json());
 api.use(express.urlencoded({ extended: true }));
 api.use(morgan('dev'));
 api.use(cors({}));
+api.use(errors());
 
 api.use('/api/v1', require('../routers'));
 
