@@ -26,4 +26,9 @@ module.exports = {
     }),
 
   }),
+  delete: celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.string().required(),
+    }),
+  }),
 };
