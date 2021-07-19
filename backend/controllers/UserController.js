@@ -13,7 +13,7 @@ module.exports = {
     const { id } = req.params;
     try {
       const user = await UserService.getOne(id);
-      if (!user) return res.status(404).json({message: 'User not found.'});
+      if (!user) return res.status(404).json({ message: 'User not found.' });
       res.status(200).json(user);
     } catch (error) {
       res.status(400).json(error);
@@ -50,6 +50,18 @@ module.exports = {
       if (!user) res.status(404).json({ message: 'User not found.' });
       await UserService.delete(id);
       res.status(204);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  },
+  signup: async (req, res) => {
+    const { email } = req.body;
+    try {
+      const userExists = await UserService.getOneByEmail(email);
+      if (userExists) res.status(400).json({ message: 'Cannot create user with this email.' });
+      const newUser = await UserService.create(req.body);
+      newUser.password = undefined;
+      res.status(201).json(newUser);
     } catch (error) {
       res.status(400).json(error);
     }
