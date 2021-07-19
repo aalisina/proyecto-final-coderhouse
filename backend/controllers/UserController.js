@@ -19,7 +19,10 @@ module.exports = {
     }
   },
   create: async (req, res) => {
+    const { email } = req.body;
     try {
+      const userExists = await UserService.getOneByEmail(email);
+      if (userExists) res.status(400).json({ message: 'Cannot create user with this email.' });
       const newUser = await UserService.create(req.body);
       res.status(201).json(newUser);
     } catch (error) {
