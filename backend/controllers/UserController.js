@@ -39,4 +39,15 @@ module.exports = {
       res.status(400).json(error);
     }
   },
+  delete: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const user = await UserService.getOne(id);
+      if (!user) res.status(404).json({ message: 'User not found.' });
+      await UserService.delete(id);
+      res.status(204);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  },
 };
