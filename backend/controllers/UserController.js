@@ -36,7 +36,6 @@ module.exports = {
       const modifiedUser = await UserService.update(user, body);
       res.status(200).json(modifiedUser);
     } catch (error) {
-      console.log(error);
       res.status(400).json(error);
     }
   },
