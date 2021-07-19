@@ -26,4 +26,18 @@ module.exports = {
       res.status(400).json(error);
     }
   },
+  update: async (req, res) => {
+    const { body } = req;
+    const { id } = req.params;
+
+    try {
+      const user = await UserService.getOne(id);
+      if (!user) res.status(404).json({ message: 'User not found.' });
+      const modifiedUser = await UserService.update(user, body);
+      res.status(200).json(modifiedUser);
+    } catch (error) {
+      console.log(error);
+      res.status(400).json(error);
+    }
+  },
 };
