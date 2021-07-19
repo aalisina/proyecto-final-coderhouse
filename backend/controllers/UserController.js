@@ -1,4 +1,5 @@
 const { UserService } = require('../services');
+const { comparePasswords } = require('../utils');
 
 module.exports = {
   getAll: async (req, res) => {
@@ -62,6 +63,19 @@ module.exports = {
       const newUser = await UserService.create(req.body);
       newUser.password = undefined;
       res.status(201).json(newUser);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  },
+  login: async (req, res) => {
+    const { email, password } = req.body;
+    try {
+      const user = await UserService.getOneByEmail(email);
+      if (!user) res.status(404).json({ message: 'Problem with credentials.' });
+      const isValid = comparePasswords(user.password, password);
+      if (!isValid) res.status(400).json({ message: 'Problem with credentials.' });
+      // TODO: generar y enviar token al cliente
+      res.status(200).json({ message: 'Login succesfull.', token: null });
     } catch (error) {
       res.status(400).json(error);
     }
