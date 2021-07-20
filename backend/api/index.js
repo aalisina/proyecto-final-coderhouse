@@ -19,7 +19,7 @@ api.use(morgan('dev'));
 api.use(cors({}));
 api.use(errors());
 
-api.use('/api/v1', require('../routers'));
+api.use('/api', require('../routers'));
 
 api.get('/', (req, res) => {
   res.send('Welcome.');
