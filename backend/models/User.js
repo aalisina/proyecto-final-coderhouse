@@ -30,6 +30,11 @@ const userSchema = new Schema({
     required: true,
     trim: true,
   },
+  phone: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   admin: {
     type: Boolean,
     trim: true,

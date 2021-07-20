@@ -8,6 +8,7 @@ module.exports = {
       email: Joi.string().email().required(),
       password: Joi.string().required(),
       confirm_password: Joi.string().required(),
+      phone: Joi.string().length(10).pattern(/^[0-9]+$/).required(),
       admin: Joi.boolean(),
     }),
   }),
@@ -26,6 +27,7 @@ module.exports = {
       email: Joi.string().email(),
       password: Joi.string(),
       confirm_password: Joi.string(),
+      phone: Joi.string().length(10).pattern(/^[0-9]+$/),
     }),
 
   }),
