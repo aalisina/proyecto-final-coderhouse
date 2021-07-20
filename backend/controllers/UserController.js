@@ -74,7 +74,7 @@ module.exports = {
       if (!user) res.status(404).json({ message: 'Problem with credentials.' });
       const isValid = comparePasswords(user.password, password);
       if (!isValid) res.status(400).json({ message: 'Problem with credentials.' });
-      const token = createToken(user)
+      const token = createToken(user);
       res.status(200).json({ message: 'Login succesfull.', token });
     } catch (error) {
       res.status(400).json(error);
