@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const { UserService } = require('../services');
 const { comparePasswords, createToken } = require('../utils');
 
@@ -50,18 +51,20 @@ module.exports = {
       const user = await UserService.getOne(id);
       if (!user) res.status(404).json({ message: 'User not found.' });
       await UserService.delete(id);
-      res.status(204);
+      res.status(204).json({});
     } catch (error) {
       res.status(400).json(error);
     }
   },
   signup: async (req, res) => {
-    const { email } = req.body;
+    const { email, password, confirm_password } = req.body;
     try {
+      if (password !== confirm_password) return res.status(400).json({ message: 'Passwords no not match.' });
       const userExists = await UserService.getOneByEmail(email);
       if (userExists) res.status(400).json({ message: 'Cannot create user with this email.' });
       const newUser = await UserService.create(req.body);
       newUser.password = undefined;
+      newUser.confirm_password = undefined;
       res.status(201).json(newUser);
     } catch (error) {
       res.status(400).json(error);
