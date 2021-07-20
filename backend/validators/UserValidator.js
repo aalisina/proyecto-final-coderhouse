@@ -7,6 +7,7 @@ module.exports = {
       last_name: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().required(),
+      confirm_password: Joi.string().required(),
       admin: Joi.boolean(),
     }),
   }),
@@ -24,6 +25,7 @@ module.exports = {
       last_name: Joi.string(),
       email: Joi.string().email(),
       password: Joi.string(),
+      confirm_password: Joi.string(),
     }),
 
   }),
