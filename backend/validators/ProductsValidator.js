@@ -1,7 +1,7 @@
 const { celebrate, Joi, Segments } = require('celebrate');
 
 module.exports = {
-  getProductByCategory: celebrate({
+  getProductsByCategory: celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       category: Joi.string().required(),
     }),
