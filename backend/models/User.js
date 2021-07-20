@@ -25,6 +25,11 @@ const userSchema = new Schema({
     required: true,
     trim: true,
   },
+  confirm_password: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   admin: {
     type: Boolean,
     trim: true,
@@ -53,6 +58,7 @@ userSchema.pre('save', function (next) {
     return bcrypt.hash(user.password, salt, (errHash, hash) => {
       if (errHash) return next(errHash);
       user.password = hash;
+      user.confirm_password = hash;
       return next();
     });
   });
