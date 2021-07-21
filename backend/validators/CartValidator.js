@@ -2,14 +2,8 @@ const { celebrate, Joi, Segments } = require('celebrate');
 
 module.exports = {
   getUserCart: celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-      idUser: Joi.string().required(),
-    }),
   }),
   create: celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-      idUser: Joi.string().required(),
-    }),
     [Segments.BODY]: Joi.object().keys({
       user_id: Joi.string().required(),
       products: Joi.array().items({
@@ -26,9 +20,6 @@ module.exports = {
     }),
   }),
   update: celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-      idUser: Joi.string().required(),
-    }),
     [Segments.BODY]: Joi.object().keys({
       user_id: Joi.string(),
       products: Joi.array().items({
@@ -42,11 +33,6 @@ module.exports = {
         floor: Joi.string(),
         department: Joi.string(),
       }),
-    }),
-  }),
-  delete: celebrate({
-    [Segments.PARAMS]: Joi.object().keys({
-      idUser: Joi.string().required(),
     }),
   }),
 };
