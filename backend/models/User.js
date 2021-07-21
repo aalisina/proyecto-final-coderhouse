@@ -69,7 +69,7 @@ userSchema.pre('save', function (next) {
   });
 });
 
-const User = model('user', userSchema, 'users');
+const User = model('user', userSchema, 'user');
 
 module.exports = {
   User,
