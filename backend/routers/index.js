@@ -7,5 +7,6 @@ router.use('/users', verifyTokenAdmin, require('./UserRouter'));
 router.use('/signup', require('./SignupRouter'));
 router.use('/login', require('./LoginRouter'));
 router.use('/products', require('./ProductsRoute'));
+router.use('/cart', verifyTokenUser, require('./CartRouter'));
 
 module.exports = router;
