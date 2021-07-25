@@ -10,6 +10,13 @@ module.exports = {
       confirm_password: Joi.string().required(),
       phone: Joi.string().length(10).pattern(/^[0-9]+$/).required(),
       admin: Joi.boolean(),
+      address: Joi.object().keys({
+        street: Joi.string().required(),
+        height: Joi.string().required(),
+        postal_code: Joi.number().required(),
+        floor: Joi.string(),
+        department: Joi.string(),
+      }),
     }),
   }),
   getOne: celebrate({
