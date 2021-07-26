@@ -9,5 +9,6 @@ module.exports = {
     Object.assign(product, body);
     return product.save();
   },
+  updateQuantity: (id, quantity) => Product.findByIdAndUpdate(id, { stock: quantity }),
   delete: (id) => Product.findByIdAndDelete(id),
 };
