@@ -5,16 +5,10 @@ const cartSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'user',
     required: true,
-    unique: true,
   },
-  products: [{
-    type: Schema.Types.ObjectId,
-    ref: 'product',
-    quantity: {
-      type: Number,
-      required: true,
-    },
-  }],
+  products: {
+    type: Array,
+  },
   address: {
     street: {
       type: String,
