@@ -13,7 +13,7 @@ module.exports = {
           email: user.email,
           orders: user.orders,
           admin: user.admin,
-          exp: Math.floor(Date.now() / 1000) + (60 * 60),
+          // exp: Math.floor(Date.now() / 1000) + (60 * 60),
         },
         process.env.JWT_SECRET,
       );
@@ -22,4 +22,20 @@ module.exports = {
       return undefined;
     }
   },
+  extractUserInfo: (body) => ({
+    first_name: body.first_name,
+    last_name: body.last_name,
+    email: body.email,
+    password: body.password,
+    confirm_password: body.confirm_password,
+    phone: body.phone,
+    admin: body.admin,
+    orders: body.orders,
+  }),
+
+  makeNewCart: (idUser, body) => ({
+    user_id: idUser,
+    products: [],
+    address: body.address,
+  }),
 };
