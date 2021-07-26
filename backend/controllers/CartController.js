@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const { CartService, ProductsService } = require('../services');
 const { Cart } = require('../models');
+
 module.exports = {
   getUserCart: async (req, res) => {
     const idUser = req.decoded._id;
@@ -36,13 +37,18 @@ module.exports = {
       const product = products.filter((e) => e._id.toString() === body.product_id)[0];
       if (!product) res.status(400).json({ message: 'Product not found.' });
 
-      if (product.stock < body.quantity || product.stock <= 0) res.status(400).json({ message: 'Out of stock.' });
+      if (product.stock < body.quantity || product.stock <= 0) return res.status(400).json({ message: 'Out of stock.' });
       const stock = (product.stock - body.quantity);
       await ProductsService.updateQuantity(product._id, stock);
-      // eslint-disable-next-line no-undef
+      // no funciona
+      // cart.products.push(body).save();
+
+      // probar con otra instancia del carrito
       const anotherCart = await Cart.findById(cart._id);
-      Object.assign(anotherCart.products, body);
-      res.status(200).json(anotherCart);
+      anotherCart.products.push(body);
+      const updatedCart = await Cart.findByIdAndUpdate(cart._id, anotherCart)
+
+      res.status(200).json(updatedCart);
     } catch (error) {
       res.status(400).json(error);
     }
