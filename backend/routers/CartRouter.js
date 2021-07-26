@@ -5,8 +5,10 @@ const { CartValidator } = require('../validators');
 const router = express.Router();
 
 router.get('/', CartController.getUserCart);
-router.post('/', CartValidator.create, CartController.create);
-router.patch('/', CartValidator.update, CartController.update);
-router.delete('/', CartController.delete);
+router.get('/all', CartController.getAllCarts);
+router.post('/add', CartValidator.addProductToCart,
+  CartController.addProductToCart);
+router.delete('/delete', CartValidator.deleteProductFromCart,
+  CartController.deleteProductFromCart);
 
 module.exports = router;
