@@ -1,6 +1,12 @@
 /* eslint-disable camelcase */
 const { UserService } = require('../services');
-const { comparePasswords, createToken } = require('../utils');
+const CartService = require('../services/CartService');
+const {
+  comparePasswords,
+  createToken,
+  extractUserInfo,
+  makeNewCart,
+} = require('../utils');
 
 module.exports = {
   getAll: async (req, res) => {
@@ -62,9 +68,17 @@ module.exports = {
       if (password !== confirm_password) return res.status(400).json({ message: 'Passwords no not match.' });
       const userExists = await UserService.getOneByEmail(email);
       if (userExists) res.status(400).json({ message: 'Cannot create user with this email.' });
-      const newUser = await UserService.create(req.body);
+      const userInfo = extractUserInfo(req.body);
+      const newUser = await UserService.create(userInfo);
       newUser.password = undefined;
       newUser.confirm_password = undefined;
+
+      // extract Cart information from body and add user id
+      // eslint-disable-next-line no-underscore-dangle
+      const newCartInfo = makeNewCart(newUser._id, req.body);
+
+      // create a new cart with the user id
+      await CartService.create(newCartInfo);
       res.status(201).json(newUser);
     } catch (error) {
       res.status(400).json(error);
