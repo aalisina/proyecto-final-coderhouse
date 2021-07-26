@@ -1,50 +1,60 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
-const { CartService } = require('../services');
-
+const mongoose = require('mongoose');
+const { CartService, ProductsService } = require('../services');
+const { Cart } = require('../models');
 module.exports = {
   getUserCart: async (req, res) => {
     const idUser = req.decoded._id;
     try {
-      const cart = await CartService.getUserCart(idUser);
-      if (!cart) {
-        const newCart = await CartService.create();
-        return res.status(200).json(newCart);
-      }
-      return res.status(200).json(cart);
+      const carts = await CartService.getAllCarts();
+      if (!carts) res.status(400).json({ message: 'Carts not found.' });
+      const cart = carts.filter((e) => (e.user_id.toString() === idUser));
+      res.status(200).json(cart);
     } catch (error) {
       res.status(400).json(error);
     }
   },
-  create: async (req, res) => {
+  getAllCarts: async (req, res) => {
+    try {
+      const carts = await CartService.getAllCarts();
+      if (!carts) res.status(400).json({ message: 'Carts not found.' });
+      res.status(200).json(carts);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  },
+  addProductToCart: async (req, res) => {
     const { body } = req;
     const idUser = req.decoded._id;
     try {
-      const newCart = await CartService.create(idUser, body);
-      res.status(201).json(newCart);
-    } catch (error) {
-      res.status(400).json(error);
-    }
-  },
-  update: async (req, res) => {
-    const { body } = req;
-    const idUser = req.decoded._id;
+      const carts = await CartService.getAllCarts();
+      if (!carts) res.status(400).json({ message: 'Carts not found.' });
+      const cart = carts.filter((e) => (e.user_id.toString() === idUser))[0];
+      if (!cart) res.status(400).json({ message: 'Cart not found.' });
+      const products = await ProductsService.getAll();
+      const product = products.filter((e) => e._id.toString() === body.product_id)[0];
+      if (!product) res.status(400).json({ message: 'Product not found.' });
 
-    try {
-      const cart = await CartService.getUserCart(idUser);
-      if (!cart) res.status(404).json({ message: 'Cart not found.' });
-      const modifiedCart = await CartService.update(cart, body);
-      res.status(200).json(modifiedCart);
+      if (product.stock < body.quantity || product.stock <= 0) res.status(400).json({ message: 'Out of stock.' });
+      const stock = (product.stock - body.quantity);
+      await ProductsService.updateQuantity(product._id, stock);
+      // eslint-disable-next-line no-undef
+      const anotherCart = await Cart.findById(cart._id);
+      Object.assign(anotherCart.products, body);
+      res.status(200).json(anotherCart);
     } catch (error) {
       res.status(400).json(error);
     }
   },
-  delete: async (req, res) => {
+  deleteProductFromCart: async (req, res) => {
     const idUser = req.decoded._id;
     try {
-      const cart = await CartService.getUserCart(idUser);
-      if (!cart) res.status(404).json({ message: 'Cart not found.' });
-      await CartService.delete(idUser);
+      const carts = await CartService.getAllCarts();
+      if (!carts) res.status(400).json({ message: 'Carts not found.' });
+      const cart = carts.filter((e) => (e.user_id.toString() === idUser));
+      if (!cart) res.status(400).json({ message: 'Cart not found.' });
+      await CartService.delete(cart._id);
       res.status(204).json({});
     } catch (error) {
       res.status(400).json(error);
