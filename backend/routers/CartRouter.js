@@ -10,5 +10,6 @@ router.post('/add', CartValidator.addProductToCart,
   CartController.addProductToCart);
 router.delete('/delete', CartValidator.deleteProductFromCart,
   CartController.deleteProductFromCart);
+router.post('/submit', CartController.submit);
 
 module.exports = router;
