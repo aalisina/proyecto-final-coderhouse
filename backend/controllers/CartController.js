@@ -113,6 +113,17 @@ module.exports = {
       };
       const createdOrder = await new Order(order).save();
       await sendEmail(req.decoded, createdOrder);
+      const emptyCart = await Cart.find({
+        user_id: {
+          $in: idUser,
+        },
+      }, (err, products) => {
+        if (err) console.log(err);
+        return products;
+      });
+      await Cart.findByIdAndUpdate(emptyCart[0]._id,
+        { products: [] },
+        { new: true });
       res.status(200).json(createdOrder);
     } catch (error) {
       res.status(400).json(error);
