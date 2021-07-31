@@ -3,6 +3,7 @@ const { Schema, model } = require('mongoose');
 const orderSchema = new Schema({
   user_id: {
     type: Schema.Types.ObjectId,
+    ref: 'user',
   },
   items: [{
     product_id: String,
