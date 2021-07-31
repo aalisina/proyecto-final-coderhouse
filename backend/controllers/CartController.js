@@ -6,6 +6,7 @@ const { Cart, Product, Order } = require('../models');
 const {
   findCommonElement,
 } = require('../utils');
+const { sendEmail } = require('../services/MailService');
 
 module.exports = {
   getUserCart: async (req, res) => {
@@ -96,7 +97,6 @@ module.exports = {
       const cart = carts.filter((e) => (e.user_id.toString() === idUser))[0];
       if (!cart.products.length) res.status(400).json({ message: 'Cart is empty.' });
       const productArr = cart.products.filter((e) => e !== null);
-      console.log(productArr);
       const productIds = productArr.map((e) => e.product_id);
       const productDetails = await Product.find({
         _id: {
@@ -112,6 +112,7 @@ module.exports = {
         items: [itemsCommon],
       };
       const createdOrder = await new Order(order).save();
+      await sendEmail(req.decoded, createdOrder);
       res.status(200).json(createdOrder);
     } catch (error) {
       res.status(400).json(error);
