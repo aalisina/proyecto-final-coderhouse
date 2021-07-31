@@ -1,7 +1,11 @@
+/* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 const { CartService, ProductsService } = require('../services');
-const { Cart } = require('../models');
+const { Cart, Product, Order } = require('../models');
+const {
+  findCommonElement,
+} = require('../utils');
 
 module.exports = {
   getUserCart: async (req, res) => {
@@ -80,6 +84,35 @@ module.exports = {
       anotherCart.products = resCart;
       anotherCart.save();
       res.status(200).json(resCart);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  },
+  submit: async (req, res) => {
+    const idUser = req.decoded._id;
+    try {
+      const carts = await CartService.getAllCarts();
+      if (!carts) res.status(400).json({ message: 'Carts not found.' });
+      const cart = carts.filter((e) => (e.user_id.toString() === idUser))[0];
+      if (!cart.products.length) res.status(400).json({ message: 'Cart is empty.' });
+      const productArr = cart.products.filter((e) => e !== null);
+      console.log(productArr);
+      const productIds = productArr.map((e) => e.product_id);
+      const productDetails = await Product.find({
+        _id: {
+          $in: productIds,
+        },
+      }, (err, products) => {
+        if (err) console.log(err);
+        return products;
+      });
+      const itemsCommon = findCommonElement(productArr, productDetails);
+      const order = {
+        user_id: idUser,
+        items: [itemsCommon],
+      };
+      const createdOrder = await new Order(order).save();
+      res.status(200).json(createdOrder);
     } catch (error) {
       res.status(400).json(error);
     }

@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-plusplus */
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -38,4 +40,26 @@ module.exports = {
     products: [],
     address: body.address,
   }),
+  findCommonElement: (productsArray, productsDetails) => {
+    // Loop for array1
+    for (let i = 0; i < productsArray.length; i++) {
+      // Loop for array2
+      for (let j = 0; j < productsDetails.length; j++) {
+        // Compare the element of each and
+        // every element from both of the
+        // arrays
+        if (productsArray[i].product_id.toString() === productsDetails[j]._id.toString()) {
+          // Return if common element found
+          return {
+            product_id: productsArray[i].product_id,
+            quantity: productsArray[i].quantity,
+            price: productsDetails[j].price,
+          };
+        }
+      }
+    }
+
+    // Return if no common element exist
+    return false;
+  },
 };
