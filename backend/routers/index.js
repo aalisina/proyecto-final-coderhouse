@@ -8,5 +8,6 @@ router.use('/signup', require('./SignupRouter'));
 router.use('/login', require('./LoginRouter'));
 router.use('/products', require('./ProductsRoute'));
 router.use('/cart', verifyTokenUser, require('./CartRouter'));
+router.use('/orders', verifyTokenUser, require('./OrderRouter'));
 
 module.exports = router;
