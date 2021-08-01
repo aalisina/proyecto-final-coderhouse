@@ -6,4 +6,9 @@ module.exports = {
       id: Joi.string().required(),
     }),
   }),
+  completeOrder: celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      id: Joi.string().required(),
+    }),
+  }),
 };
