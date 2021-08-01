@@ -5,6 +5,6 @@ const { OrderValidator } = require('../validators');
 const router = express.Router();
 
 router.get('/', OrderController.getAllUserOrders);
-router.get('/:id', OrderController.getOrderById);
+router.get('/:id', OrderValidator.getOneOrder, OrderController.getOrderById);
 
 module.exports = router;
