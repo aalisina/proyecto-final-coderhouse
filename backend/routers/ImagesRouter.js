@@ -10,13 +10,14 @@ let gfs;
 const conn = mongoose.connection;
 conn.once('open', () => {
   gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('photos');
+  gfs.collection('images');
   console.log('Connected to Grid');
 });
 
 router.post('/upload', upload.single('file'), async (req, res) => {
-  if (req.file === undefined) return res.send('you must select a file.');
+  if (req.file === undefined) res.send('you must select a file.');
   const imgUrl = `http://localhost:8080/file/${req.file.filename}`;
+  console.log(req.file.filename);
   return res.send(imgUrl);
 });
 
