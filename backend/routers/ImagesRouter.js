@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 const Grid = require('gridfs-stream');
 const mongoose = require('mongoose');
 const express = require('express');
 const upload = require('../middlewares/upload');
+const { ProductsService } = require('../services');
 
 const router = express.Router();
 
@@ -15,30 +17,48 @@ conn.once('open', () => {
 });
 
 router.post('/upload', upload.single('file'), async (req, res) => {
-  if (req.file === undefined) res.send('you must select a file.');
-  const imgUrl = `http://localhost:8080/file/${req.file.filename}`;
-  console.log(req.file.filename);
-  return res.send(imgUrl);
-});
+  const idProduct = req.query.idproduct;
 
-// media routes
-router.get('/:filename', async (req, res) => {
   try {
-    const file = await gfs.files.findOne({ filename: req.params.filename });
-    const readStream = gfs.createReadStream(file.filename);
-    readStream.pipe(res);
+    if (req.file === undefined) {
+      return res.send('You must select a file.');
+    }
+    const product = await ProductsService.getOne(idProduct.toString());
+    if (!product) res.status(400).json({ message: 'Product not found.' });
+    product.images.push(req.file.id);
+    product.save();
+    return res.status(201).json({ product, file: req.file });
   } catch (error) {
-    res.send('not found');
+    res.status(400).json({ message: error });
   }
 });
 
-router.delete('/file/:filename', async (req, res) => {
+// media routes
+router.get('/:id', async (req, res) => {
   try {
-    await gfs.files.deleteOne({ filename: req.params.filename });
-    res.send('success');
+    const file = await gfs.files.findOne({ _id: req.params.id });
+    const readStream = gfs.createReadStream(file._id);
+    readStream.pipe(res);
+    // res.status(200).json(file);
   } catch (error) {
-    console.log(error);
-    res.send('An error occured.');
+    res.status(404).json({ message: 'image not found.' });
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  const idImage = req.params.id;
+  try {
+    // await gfs.files.deleteOne({ _id: idImage });
+    const products = await ProductsService.getAll();
+    const prod = products.filter((product) => product.images.includes(idImage.toString()));
+    if (!prod) res.status(400).json({ message: 'Image not found.' });
+    const productToUpdate = await ProductsService.getOne(prod[0]._id);
+    const imagesArray = productToUpdate.images.filter((id) => id.toString() !== idImage.toString());
+    productToUpdate.images = imagesArray;
+    productToUpdate.save();
+    res.status(200).json({ message: 'Image deleted.', updatedProduct: productToUpdate });
+  } catch (error) {
+    res.status(400).json({ message: 'Error while deleting the image.' });
   }
 });
 
