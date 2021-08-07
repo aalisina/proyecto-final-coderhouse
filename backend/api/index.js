@@ -25,8 +25,4 @@ api.get('/', (req, res) => {
   res.send('Welcome.');
 });
 
-io.on('connection', (socket) => {
-  console.log('a user is connected');
-});
-
-module.exports = { server, PORT };
+module.exports = { server, PORT, io };
