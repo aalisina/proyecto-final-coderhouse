@@ -40,10 +40,6 @@ const userSchema = new Schema({
     trim: true,
     default: false,
   },
-  orders: {
-    type: Array,
-    default: [],
-  },
 }, {
   timestamps: true,
   versionKey: false,
