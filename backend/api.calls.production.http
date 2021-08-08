@@ -1,0 +1,142 @@
+### Get all the users
+GET https://coderhouse-backend-ali.herokuapp.com/api/users HTTP/1.1
+Authorization: Bearer 
+
+### Get one user
+GET https://coderhouse-backend-ali.herokuapp.com/api/users/{id} HTTP/1.1
+Authorization: Bearer 
+
+
+### Update user
+PATCH https://coderhouse-backend-ali.herokuapp.com/api/users/{id} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+{
+    "first_name": "First Name",
+    "last_name": "Last Name"
+}
+### Delete one user
+DELETE https://coderhouse-backend-ali.herokuapp.com/api/users/{id} HTTP/1.1
+Authorization: Bearer 
+
+### signup
+POST https://coderhouse-backend-ali.herokuapp.com/api/signup/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "first_name": "John",
+    "last_name": "Do",
+    "email": "do123@gmail.com",
+    "password": "do123",
+    "confirm_password": "do123",
+    "phone": "1234567891",
+    "admin": true,
+    "address": {
+        "street": "John Lane",
+        "height": "120",
+        "postal_code": "654321"
+    }
+}
+
+### login
+POST https://coderhouse-backend-ali.herokuapp.com/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "do123@gmail.com",
+    "password": "do123"
+
+}
+
+### Get all the products
+GET https://coderhouse-backend-ali.herokuapp.com/api/products HTTP/1.1
+
+### Get products by category
+GET https://coderhouse-backend-ali.herokuapp.com/api/products/shoes HTTP/1.1
+
+### Create a product
+POST https://coderhouse-backend-ali.herokuapp.com/api/products HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+    "product_name": "Nike Premium",
+    "description": "Best shoe in the market.",
+    "category": "shoes",
+    "price": 20,
+    "stock": 30
+
+}
+
+### Update a product
+PATCH https://coderhouse-backend-ali.herokuapp.com/api/products/{id}HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+
+    "stock": 10
+
+}
+
+### Delete a product
+DELETE https://coderhouse-backend-ali.herokuapp.com/api/products/{id} HTTP/1.1
+Authorization: Bearer 
+
+### Get the users cart
+GET  https://coderhouse-backend-ali.herokuapp.com/api/cart HTTP/1.1
+Authorization: Bearer 
+
+### Get all the carts
+GET  https://coderhouse-backend-ali.herokuapp.com/api/cart/all HTTP/1.1
+Authorization: Bearer 
+
+### Add product to cart
+POST https://coderhouse-backend-ali.herokuapp.com/api/cart/add HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+{
+    "product_id": "id-product",
+    "quantity": 10
+}
+
+### Delete a product from the cart
+DELETE https://coderhouse-backend-ali.herokuapp.com/api/cart/delete HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+    "product_id": "60f74799646e9563bb1afdb4",
+    "quantity": 2
+}
+
+### Submit a cart with products
+POST https://coderhouse-backend-ali.herokuapp.com/api/cart/submit HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+
+### Submit a cart without products
+POST https://coderhouse-backend-ali.herokuapp.com/api/cart/submit HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+
+### Get all the orders of the user
+GET https://coderhouse-backend-ali.herokuapp.com/api/orders HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+
+### Get one of the orders of the user
+GET https://coderhouse-backend-ali.herokuapp.com/api/orders/{id} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+
+### Complete one of the orders
+POST https://coderhouse-backend-ali.herokuapp.com/api/orders/complete HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+    "id": "orderID"
+}
+
+### For media routes, please use Postman or Insomnia 

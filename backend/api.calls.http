@@ -1,14 +1,155 @@
 ###Get all users
-GET http://localhost:3001/api/v1/users HTTP/1.1
+GET http://localhost:3001/api/users HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGZmMmYyMDA2NGMxM2ZmYTRmMWM4Y2UiLCJmaXJzdF9uYW1lIjoiTmFzIiwiZW1haWwiOiJuYXMxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzQxNzA0MX0.XJSQWcXc4yOuVGTIq9Gh4q61PYVDB7-nqPF5qruVfBY
+
+###Get one user
+GET http://localhost:3001/api/users/60f6f82f4fcc2947a65bdd66 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGZmMmYyMDA2NGMxM2ZmYTRmMWM4Y2UiLCJmaXJzdF9uYW1lIjoiTmFzIiwiZW1haWwiOiJuYXMxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzQxNzA0MX0.XJSQWcXc4yOuVGTIq9Gh4q61PYVDB7-nqPF5qruVfBY
 
 
-###Post user
-POST http://localhost:3001/api/v1/users HTTP/1.1
+### Post user
+POST http://localhost:3001/api/users HTTP/1.1
 Content-Type: application/json
 
 {
     "first_name": "Dana",
     "last_name": "Jones",
-    "email": "jones123@gmail.com",
+    "email": "jones123456@gmail.com",
     "password": "jones123"
 }
+
+### Update user
+PATCH http://localhost:3001/api/users/60f6f82f4fcc2947a65bdd66 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGY2ZTQwNTk3Y2Q1YjI5M2FkNmNjNTQiLCJmaXJzdF9uYW1lIjoic2luYSIsImVtYWlsIjoic2luYXpheTEyM0BnbWFpbC5jb20iLCJvcmRlcnMiOltdLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI2NzkzMDIzfQ.SVfg7tH3l5wch4CGqWHZTu_BCR3cVUEFn53aKBttaGU
+
+{
+    "first_name": "Ali",
+    "last_name": "Alizay"
+}
+### Delete one user
+DELETE http://localhost:3001/api/users/60f702716584195df14797e6 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGY3MjllMWE2MmJmNDFkMWRmYzQ4NDEiLCJmaXJzdF9uYW1lIjoiYWxpIHNpbmEiLCJlbWFpbCI6ImFsaXpheTEyM0BnbWFpbC5jb20iLCJvcmRlcnMiOltdLCJhZG1pbiI6ZmFsc2UsImV4cCI6MTYyNjgyMTU0MSwiaWF0IjoxNjI2ODE3OTQxfQ.QeBC7V2ygs7lR7tKyEgzWD9D_etfCEqqXc7i3BqdMbw
+
+### signup
+POST http://localhost:3001/api/signup/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "first_name": "David",
+    "last_name": "Smit",
+    "email": "smit123@gmail.com",
+    "password": "smit123",
+    "confirm_password": "smit123",
+    "phone": "1234567891",
+    "admin": true,
+    "address": {
+        "street": "Bas Lane",
+        "height": "120",
+        "postal_code": "654321"
+    }
+}
+
+### login
+POST http://localhost:3001/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "nas123@gmail.com",
+    "password": "nas123"
+
+}
+
+### Get all products
+GET http://localhost:3001/api/products HTTP/1.1
+
+### Get products by category
+GET http://localhost:3001/api/products/shoes HTTP/1.1
+
+### Create a product
+POST http://localhost:3001/api/products HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGZmNDkwOGI5ZWNlNjQ3Zjc2YjczNTMiLCJmaXJzdF9uYW1lIjoiQmFzIiwiZW1haWwiOiJiYXMxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzM0NDU1NH0.mIw_3nXHsW3ao7Ht-5u6Z4RwcNMKFVRsv-LgMWzuoGQ
+
+{
+    "product_name": "Nike Premium",
+    "description": "Best shoe in the market.",
+    "category": "shoes",
+    "price": 20,
+    "stock": 30
+
+}
+
+### Update a product
+PATCH http://localhost:3001/api/products/60f74799646e9563bb1afdb4 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGZkZWYyYjY1OTRiNjVlM2JlMTAyMzMiLCJmaXJzdF9uYW1lIjoiU2xpbSIsImVtYWlsIjoic2hhZHkxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzMzMDMxNn0.6pNdydVP7Vup9EqXZEuYkPkEnMYEbBUFkLZAhNIuLIM
+
+
+{
+
+    "stock": 10
+
+}
+
+### Delete a product
+DELETE http://localhost:3001/api/products/60f741f2ac63a7545c081e94 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGY3MjllMWE2MmJmNDFkMWRmYzQ4NDEiLCJmaXJzdF9uYW1lIjoiYWxpIHNpbmEiLCJlbWFpbCI6ImFsaXpheTEyM0BnbWFpbC5jb20iLCJvcmRlcnMiOltdLCJhZG1pbiI6ZmFsc2UsImV4cCI6MTYyNjgyMjAwNiwiaWF0IjoxNjI2ODE4NDA2fQ.McCtBL2GSxpVPPuV4slGqiprMOMGIWeilNeXr8vaM6c
+
+### Get the users cart
+GET  http://localhost:3001/api/cart HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGZmMmYyMDA2NGMxM2ZmYTRmMWM4Y2UiLCJmaXJzdF9uYW1lIjoiTmFzIiwiZW1haWwiOiJuYXMxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzQxNzA0MX0.XJSQWcXc4yOuVGTIq9Gh4q61PYVDB7-nqPF5qruVfBY
+
+### Get all the carts
+GET  http://localhost:3001/api/cart/all HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGZmMmYyMDA2NGMxM2ZmYTRmMWM4Y2UiLCJmaXJzdF9uYW1lIjoiTmFzIiwiZW1haWwiOiJuYXMxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzQxNzA0MX0.XJSQWcXc4yOuVGTIq9Gh4q61PYVDB7-nqPF5qruVfBY
+
+### Add product to cart
+POST http://localhost:3001/api/cart/add HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGZmMmYyMDA2NGMxM2ZmYTRmMWM4Y2UiLCJmaXJzdF9uYW1lIjoiTmFzIiwiZW1haWwiOiJuYXMxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzQxNzA0MX0.XJSQWcXc4yOuVGTIq9Gh4q61PYVDB7-nqPF5qruVfBY
+
+{
+    "product_id": "61005f9b0210d10fcdd335b5",
+    "quantity": 10
+}
+
+### Delete a product from the cart
+DELETE http://localhost:3001/api/cart/delete HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTA0NmIxYmU5NjMzZTY5ZTc0MGE3OTkiLCJmaXJzdF9uYW1lIjoiRGF2aWQiLCJlbWFpbCI6InNtaXQxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzY3OTU1NX0.SEAmVB300S67GVTT5-MHl2Oy7n-bstiOL-kCWYxgSa4
+{
+    "product_id": "60f74799646e9563bb1afdb4",
+    "quantity": 2
+}
+
+### Submit a cart with products
+POST http://localhost:3001/api/cart/submit HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGZmMmYyMDA2NGMxM2ZmYTRmMWM4Y2UiLCJmaXJzdF9uYW1lIjoiTmFzIiwiZW1haWwiOiJuYXMxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzQxNzA0MX0.XJSQWcXc4yOuVGTIq9Gh4q61PYVDB7-nqPF5qruVfBY
+
+### Submit a cart without products
+POST http://localhost:3001/api/cart/submit HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTA0NmIxYmU5NjMzZTY5ZTc0MGE3OTkiLCJmaXJzdF9uYW1lIjoiRGF2aWQiLCJlbWFpbCI6InNtaXQxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzY4MTMxNn0.0DXS60oyT9pnpucYWbURxrjY_EBMkW63KCASFZ33Ivo
+
+### Get all the orders of the user
+GET http://localhost:3001/api/orders HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGZmMmYyMDA2NGMxM2ZmYTRmMWM4Y2UiLCJmaXJzdF9uYW1lIjoiTmFzIiwiZW1haWwiOiJuYXMxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzg0NDI5M30.qHgGr5phE6E79hqUdffxF1LrEpw1y24nFBvVm01ODqg
+
+### Get one of the orders of the user
+GET http://localhost:3001/api/orders/61049bcc687ed3e276d1131e HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGZmMmYyMDA2NGMxM2ZmYTRmMWM4Y2UiLCJmaXJzdF9uYW1lIjoiTmFzIiwiZW1haWwiOiJuYXMxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzg0NDI5M30.qHgGr5phE6E79hqUdffxF1LrEpw1y24nFBvVm01ODqg
+
+### Complete one of the orders
+POST http://localhost:3001/api/orders/complete HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGZmMmYyMDA2NGMxM2ZmYTRmMWM4Y2UiLCJmaXJzdF9uYW1lIjoiTmFzIiwiZW1haWwiOiJuYXMxMjNAZ21haWwuY29tIiwib3JkZXJzIjpbXSwiYWRtaW4iOnRydWUsImlhdCI6MTYyNzg0NDI5M30.qHgGr5phE6E79hqUdffxF1LrEpw1y24nFBvVm01ODqg
+
+{
+    "id": "6105b6e012004311411abcff"
+}
+
+### For media routes, please use Postman or Insomnia
