@@ -1,49 +1,57 @@
-### Get all the users
+### admin user email: sydnie.price86@ethereal.email
+### admin user password: do123
+### token admin eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
+### user email: matilde.cole@ethereal.email
+### user password user123
+### token user eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGVkNTkzM2JkNzAwMTU1MDIwYzQiLCJmaXJzdF9uYW1lIjoiTWF0aWxkZSIsImVtYWlsIjoibWF0aWxkZS5jb2xlQGV0aGVyZWFsLmVtYWlsIiwiYWRtaW4iOmZhbHNlLCJpYXQiOjE2Mjg0NTkwNTR9.eTrP3nU9LyHJMAE6kxpXse1q_wpCNus1BX-Qi6B-ovc
+
+
+### Get all the users as admin
 GET https://coderhouse-backend-ali.herokuapp.com/api/users HTTP/1.1
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
-### Get one user
-GET https://coderhouse-backend-ali.herokuapp.com/api/users/{id} HTTP/1.1
-Authorization: Bearer 
+### Get one user as admin
+GET https://coderhouse-backend-ali.herokuapp.com/api/users/61104ed5933bd700155020c4 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
-
-### Update user
-PATCH https://coderhouse-backend-ali.herokuapp.com/api/users/{id} HTTP/1.1
+### Update user as admin
+PATCH https://coderhouse-backend-ali.herokuapp.com/api/users/61104ed5933bd700155020c4 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer 
-{
-    "first_name": "First Name",
-    "last_name": "Last Name"
-}
-### Delete one user
-DELETE https://coderhouse-backend-ali.herokuapp.com/api/users/{id} HTTP/1.1
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
-### signup
+{
+    "first_name": "Matilde Updated"
+}
+
+### Delete one user as admin
+DELETE https://coderhouse-backend-ali.herokuapp.com/api/users/61105292933bd700155020f7 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
+
+### signup 
 POST https://coderhouse-backend-ali.herokuapp.com/api/signup/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "first_name": "John",
-    "last_name": "Do",
-    "email": "do123@gmail.com",
-    "password": "do123",
-    "confirm_password": "do123",
+    "first_name": "Matilde to be deleted",
+    "last_name": "Cole",
+    "email": "matilde.cole.delete@ethereal.email",
+    "password": "user123",
+    "confirm_password": "user123",
     "phone": "1234567891",
     "admin": true,
     "address": {
-        "street": "John Lane",
-        "height": "120",
-        "postal_code": "654321"
+        "street": "Matilde Lane",
+        "height": "140",
+        "postal_code": "123456"
     }
 }
 
-### login
+### login with admin credentials
 POST https://coderhouse-backend-ali.herokuapp.com/api/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "do123@gmail.com",
+    "email": "sydnie.price86@ethereal.email",
     "password": "do123"
 
 }
@@ -57,7 +65,7 @@ GET https://coderhouse-backend-ali.herokuapp.com/api/products/shoes HTTP/1.1
 ### Create a product
 POST https://coderhouse-backend-ali.herokuapp.com/api/products HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
 {
     "product_name": "Nike Premium",
@@ -68,10 +76,10 @@ Authorization: Bearer
 
 }
 
-### Update a product
-PATCH https://coderhouse-backend-ali.herokuapp.com/api/products/{id}HTTP/1.1
+### Update a product as admin
+PATCH https://coderhouse-backend-ali.herokuapp.com/api/products/6611053e2933bd7001550210e HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
 {
 
@@ -79,64 +87,65 @@ Authorization: Bearer
 
 }
 
-### Delete a product
-DELETE https://coderhouse-backend-ali.herokuapp.com/api/products/{id} HTTP/1.1
-Authorization: Bearer 
+### Delete a product as admin
+DELETE https://coderhouse-backend-ali.herokuapp.com/api/products/611053e2933bd7001550210e HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
 ### Get the users cart
 GET  https://coderhouse-backend-ali.herokuapp.com/api/cart HTTP/1.1
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
 ### Get all the carts
 GET  https://coderhouse-backend-ali.herokuapp.com/api/cart/all HTTP/1.1
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
 ### Add product to cart
 POST https://coderhouse-backend-ali.herokuapp.com/api/cart/add HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
+
 {
-    "product_id": "id-product",
-    "quantity": 10
+    "product_id": "611053e2933bd7001550210e",
+    "quantity": 5
 }
 
 ### Delete a product from the cart
 DELETE https://coderhouse-backend-ali.herokuapp.com/api/cart/delete HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
 {
-    "product_id": "60f74799646e9563bb1afdb4",
+    "product_id": "611053e2933bd7001550210e",
     "quantity": 2
 }
 
 ### Submit a cart with products
 POST https://coderhouse-backend-ali.herokuapp.com/api/cart/submit HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
-### Submit a cart without products
+### Submit a cart without products with token user
 POST https://coderhouse-backend-ali.herokuapp.com/api/cart/submit HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGVkNTkzM2JkNzAwMTU1MDIwYzQiLCJmaXJzdF9uYW1lIjoiTWF0aWxkZSIsImVtYWlsIjoibWF0aWxkZS5jb2xlQGV0aGVyZWFsLmVtYWlsIiwiYWRtaW4iOmZhbHNlLCJpYXQiOjE2Mjg0NTkwNTR9.eTrP3nU9LyHJMAE6kxpXse1q_wpCNus1BX-Qi6B-ovc
 
 ### Get all the orders of the user
 GET https://coderhouse-backend-ali.herokuapp.com/api/orders HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
 ### Get one of the orders of the user
-GET https://coderhouse-backend-ali.herokuapp.com/api/orders/{id} HTTP/1.1
+GET https://coderhouse-backend-ali.herokuapp.com/api/orders/611054c6933bd70015502121 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
 ### Complete one of the orders
 POST https://coderhouse-backend-ali.herokuapp.com/api/orders/complete HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTEwNGQ2OTkzM2JkNzAwMTU1MDIwYmUiLCJmaXJzdF9uYW1lIjoiSm9obiIsImVtYWlsIjoic3lkbmllLnByaWNlODZAZXRoZXJlYWwuZW1haWwiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjI4NDU5MzM0fQ._upZpSBX0iPPPUVjuO0kEQpAdRdyEAF95sHHreAVbRY
 
 {
-    "id": "orderID"
+    "id": "611054c6933bd70015502121"
 }
 
 ### For media routes, please use Postman or Insomnia 
