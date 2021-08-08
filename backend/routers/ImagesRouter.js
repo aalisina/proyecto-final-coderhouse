@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const upload = require('../middlewares/upload');
 const { ProductsService } = require('../services');
+const { verifyTokenAdmin } = require('../middlewares');
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ conn.once('open', () => {
   console.log('Connected to Grid');
 });
 
-router.post('/upload', upload.single('file'), async (req, res) => {
+router.post('/upload', verifyTokenAdmin, upload.single('file'), async (req, res) => {
   const idProduct = req.query.idproduct;
 
   try {
@@ -45,7 +46,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyTokenAdmin, async (req, res) => {
   const idImage = req.params.id;
   try {
     // await gfs.files.deleteOne({ _id: idImage });
