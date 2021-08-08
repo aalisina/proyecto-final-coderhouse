@@ -1,3 +1,4 @@
+/* eslint-disable no-const-assign */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
 const express = require('express');
@@ -13,6 +14,7 @@ const http = require('http');
 
 const server = http.createServer(api);
 const { Server } = require('socket.io');
+const { Message } = require('../models');
 // const { userSocketQuery } = require('../utils');
 const {
   ProductsService, UserService, OrderService, CartService,
@@ -34,51 +36,64 @@ api.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log(`User ${socket.id} is connected.`);
-  // console.log(socket.id);
-  socket.broadcast.emit('mensaje', 'From the server.');
   socket.on('new-message', (payload) => {
     console.log(payload);
     const { token } = payload;
 
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (err) {
-        socket.emit('resp-message', { token: undefined, message: 'Invalid token.' });
-      } else {
-        try {
-          const user = await UserService.getOneByEmail(decoded.email);
-          if (!user) socket.emit('resp-message', { token: undefined, message: 'User not found.' });
-          if (payload.message.toLowerCase() === 'stock') {
-            const products = await ProductsService.getAll();
-            const stocks = products.map((prod) => ({
-              name: prod.product_name,
-              stock: prod.stock,
-            }));
-            console.log(stocks);
-            return socket.emit('resp-message', { token: decoded, message: stocks });
+        const message = { token: undefined, message: 'Invalid token.' };
+        await new Message({ user_id: decoded._id, type: 'SYSTEM', message }).save();
+        return socket.emit('resp-message', message);
+      }
+      try {
+        const user = await UserService.getOneByEmail(decoded.email);
+        if (!user) socket.emit('resp-message', { token: undefined, message: 'User not found.' });
+        const message = { token: decoded, message: 'Token is valid.' };
+        await new Message({ user_id: decoded._id, type: 'USER', message }).save();
+
+        if (payload.message.toLowerCase() === 'stock') {
+          const products = await ProductsService.getAll();
+          const stocks = products.map((prod) => ({
+            name: prod.product_name,
+            stock: prod.stock,
+          }));
+          // eslint-disable-next-line no-const-assign
+          message = { token: decoded, message: stocks };
+          return socket.emit('resp-message', message);
+        }
+        if (payload.message.toLowerCase() === 'orden') {
+          const allOrders = await OrderService.getAllOrders();
+          const userOrders = allOrders.filter(
+            (order) => order.user_id.toString() === decoded._id.toString(),
+          );
+          if (!userOrders) {
+            message = { token: decoded, message: 'User has no orders.' };
+            await new Message({ user_id: decoded._id, type: 'SYSTEM', message }).save();
+            return socket.emit('resp-message', message);
           }
-          if (payload.message.toLowerCase() === 'orden') {
-            const allOrders = await OrderService.getAllOrders();
-            const userOrders = allOrders.filter(
-              (order) => order.user_id.toString() === decoded._id.toString(),
-            );
-            if (!userOrders) socket.emit('resp-message', { token: decoded, message: 'User has no orders.' });
-            return socket.emit('resp-message', { token: decoded, message: userOrders });
-          }
-          if (payload.message.toLowerCase() === 'carrito') {
-            const carts = await CartService.getAllCarts();
-            if (!carts) socket.emit('resp-message', { token: decoded, message: 'No carts available.' });
-            const cart = carts.filter((e) => (e.user_id.toString() === decoded._id));
-            if (!cart) socket.emit('resp-message', { token: decoded, message: 'The user has no cart.' });
-            return socket.emit('resp-message', { token: decoded, message: cart });
-          }
-          const texto = `Hola! No he podido comprender tu mensaje. Por favor ingresa una de las seguientes opciones => 
+          message = { token: decoded, message: userOrders };
+          await new Message({ user_id: decoded._id, type: 'SYSTEM', message }).save();
+          return socket.emit('resp-message', message);
+        }
+        if (payload.message.toLowerCase() === 'carrito') {
+          const carts = await CartService.getAllCarts();
+          if (!carts) socket.emit('resp-message', { token: decoded, message: 'No carts available.' });
+          const cart = carts.filter((e) => (e.user_id.toString() === decoded._id));
+          if (!cart) socket.emit('resp-message', { token: decoded, message: 'The user has no cart.' });
+          message = { token: decoded, message: cart };
+          await new Message({ user_id: decoded._id, type: 'SYSTEM', message }).save();
+          return socket.emit('resp-message', message);
+        }
+        const texto = `Hola! No he podido comprender tu mensaje. Por favor ingresa una de las seguientes opciones => 
             1: Stock
             2: Orden 
             3:Carrito`;
-          socket.emit('resp-message', { token: decoded, message: texto });
-        } catch (error) {
-          console.log(error);
-        }
+        message = { token: decoded, message: texto };
+        await new Message({ user_id: decoded._id, type: 'SYSTEM', message }).save();
+        socket.emit('resp-message', message);
+      } catch (error) {
+        console.log(error);
       }
     });
   });
