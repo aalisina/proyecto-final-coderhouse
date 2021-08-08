@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable no-const-assign */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
@@ -42,14 +43,14 @@ io.on('connection', (socket) => {
 
     jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
       if (err) {
-        const message = { token: undefined, message: 'Invalid token.' };
+        let message = { token: undefined, message: 'Invalid token.' };
         await new Message({ user_id: decoded._id, type: 'SYSTEM', message }).save();
         return socket.emit('resp-message', message);
       }
       try {
         const user = await UserService.getOneByEmail(decoded.email);
         if (!user) socket.emit('resp-message', { token: undefined, message: 'User not found.' });
-        const message = { token: decoded, message: 'Token is valid.' };
+        let message = { token: decoded, message: 'Token is valid.' };
         await new Message({ user_id: decoded._id, type: 'USER', message }).save();
 
         if (payload.message.toLowerCase() === 'stock') {
@@ -58,7 +59,6 @@ io.on('connection', (socket) => {
             name: prod.product_name,
             stock: prod.stock,
           }));
-          // eslint-disable-next-line no-const-assign
           message = { token: decoded, message: stocks };
           return socket.emit('resp-message', message);
         }
@@ -68,7 +68,7 @@ io.on('connection', (socket) => {
             (order) => order.user_id.toString() === decoded._id.toString(),
           );
           if (!userOrders) {
-            message = { token: decoded, message: 'User has no orders.' };
+            let message = { token: decoded, message: 'User has no orders.' };
             await new Message({ user_id: decoded._id, type: 'SYSTEM', message }).save();
             return socket.emit('resp-message', message);
           }
