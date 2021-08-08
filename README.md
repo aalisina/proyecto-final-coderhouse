@@ -2,6 +2,8 @@ To run the application locally or on a server, see the .envExample file for the 
 
 For testing purposes in VS Code, the extension Rest Client can be installed: https://marketplace.visualstudio.com/items?itemName=humao.rest-client. The file api.calls.http can be used to test the endpoints locally and the file api.calls.production.http when the application runs on a server.
 
+***ENDPOINTS***
+
 @route GET /api/users
 @desc Lists all users, requires auth
 
